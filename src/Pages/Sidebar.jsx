@@ -6,7 +6,7 @@ import { IconButton } from '@mui/material'
 
 function Sidebar() {
   return (
-    <aside className='h-screen w-60'>
+    <aside className='h-screen w-60 fixed'>
       <nav className='h-full flex flex-col bg-[rgb(255,250,236)] border-r shadow-sm p-4'>
       <div className='pb-7 flex items-center space-x-2'> 
           <img src='/Ezrah-Logo.png' className='w-32' alt='logo' />
@@ -14,7 +14,7 @@ function Sidebar() {
             <ArrowLeftSharpIcon/>
           </IconButton>
         </div>
-        <ul className="menu bg-[rgb(255,250,236)] rounded-box w-56 border-r">
+        <ul className="menu bg-[rgb(255,250,236)] rounded-box w-56 border-r text-green-900 ">
             <li>
             <ul>
             <li><Link to="/">Home</Link></li>

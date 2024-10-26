@@ -13,7 +13,7 @@ function App() {
 
     <div className="App flex">
       <Sidebar/>
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1  ml-60 overflow-y-auto">
       <Routes>
       <Route path="/" element={<HomePage/>}/>
       <Route path='/contact' element={<ContactPage/>}/>
