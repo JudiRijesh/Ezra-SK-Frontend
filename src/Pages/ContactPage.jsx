@@ -1,4 +1,5 @@
 import React, { useState } from 'react'; 
+import axios from 'axios';
 
 function ContactPage() {
   const [name, setName] = useState("");
@@ -7,11 +8,26 @@ function ContactPage() {
   const [province, setProvince] = useState("");
   const [organisation, setOrganisation] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); 
-    console.log({ name, email, phone, province, organisation });
-  };
+    const contactData = { name, email, phone, province, organisation }
 
+    try {
+
+      const response = await axios.post("http://localhost:5005/contact", contactData)
+      console.log("Contact created successfully:", response.data)
+
+      setName("");
+      setEmail("");
+      setPhone("");
+      setProvince("");
+      setOrganisation("");
+    } catch (error) {
+      console.error("Error creating contact:", error.response ? error.response.data : error.message);
+    }
+  }
+
+  
   return (
     <div className="p-5 bg-[rgb(255,250,236)]">
       <div className="h-1/3 w-full">
@@ -19,7 +35,7 @@ function ContactPage() {
       </div>
 
       <h1 className="text-2xl font-bold mb-8 mt-8 text-green-900">
-            Register your interest below in becoming a Ezra Partner for HELP
+            Register your interest to get help from an EZRA Partner
           </h1>
 
       <div className="flex mt-5 space-x-4">
