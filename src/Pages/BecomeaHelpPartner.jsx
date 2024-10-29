@@ -102,7 +102,7 @@ function BecomeaHelpPartner() {
               <label className="block text-sm font-medium text-green-900" htmlFor="province">Province</label>
               <select id="province" value={province} onChange={(e) => setProvince(e.target.value)} 
                 className="mt-1 block w-full border border-green-700 rounded-md shadow-sm p-2" required>
-                  <option value="" disabled>Select a province</option> 
+                  <option value="disabled">Select a province</option> 
                   <option value="Noord-Holland">Noord-Holland</option>
                   <option value="Zuid-Holland">Zuid-Holland</option>
                   <option value="Zeeland">Zeeland</option>
@@ -118,14 +118,14 @@ function BecomeaHelpPartner() {
               </select>
 
               <label className="block text-sm font-medium text-green-900" htmlFor="field">Field</label>
-              <select id="field" value={province} onChange={(e) => setField(e.target.value)} 
+              <select id="field" value={field} onChange={(e) => setField(e.target.value)} 
                 className="mt-1 block w-full border border-green-700 rounded-md shadow-sm p-2" required>
-                  <option value="" disabled>Select a field to which you want to become a partner to Help</option> 
-                  <option value="Noord-Holland">Elderly Care</option>
-                  <option value="Zuid-Holland">Suicide Prevention Center</option>
-                  <option value="Zeeland">Abuse Care</option>
-                  <option value="Noord-Brabant">Chat-Help</option>
-                  <option value="Noord-Brabant">Nursing Care for the  Helpless</option>
+                  <option value="disabled">Select a field to which you want to become a partner to Help</option> 
+                  <option value="Elderly Care">Elderly Care</option>
+                  <option value="Suicide Prevention Center">Suicide Prevention Center</option>
+                  <option value="Abuse Care">Abuse Care</option>
+                  <option value="Chat-Help">Chat-Help</option>
+                  <option value="Nursing Care for the Helpless">Nursing Care for the  Helpless</option>
 
               </select>
          
