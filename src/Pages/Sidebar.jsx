@@ -21,6 +21,8 @@ function Sidebar() {
           <li><Link to="/helpProfessionals">Help Professionals</Link></li>
           <li><Link to="/become">Become a Help Partner</Link></li>
           <li><Link to="/contact">Contact</Link></li>
+          <li><Link to="/cart">Cart</Link></li>
+          <li><Link to="/login">Login</Link></li>
           
 
             </ul>
