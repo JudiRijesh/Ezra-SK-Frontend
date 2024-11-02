@@ -14,7 +14,7 @@ function ContactPage() {
 
     try {
 
-      const response = await axios.post("http://localhost:5005/contact", contactData)
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/contact`, contactData)
       console.log("Contact created successfully:", response.data)
 
       setName("");

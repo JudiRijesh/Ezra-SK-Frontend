@@ -15,7 +15,7 @@ function BecomeaHelpPartner() {
 
       try {
 
-        const response = await axios.post("http://localhost:5005/become", contactData)
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/become`, contactData)
 
         setName("");
         setEmail("");
