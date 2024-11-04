@@ -53,25 +53,28 @@ function HelpProgramPage() {
 
     const submitBookNow = async (service) => {
         if (!loggedInUser) {
-            alert("Please log in to book a service.");
+            alert("Please log in to book a service.")
             navigate('/login')
-            return
+            return;
         }
-
+    
         const data = {
-            userId: loggedInUser._id,  
+            userId: loggedInUser._id,
             name: service.name,
             serviceId: service.id,
         }
-
+    
         try {
-            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/add`, data);
+            console.log(`Posting to: ${import.meta.env.VITE_BACKEND_URL}/add`, data)
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/add`, data)
             alert("Item added to Cart")
             navigate('/Cart')
         } catch (error) {
             console.error("Error adding item to Cart:", error)
+            alert(`Error adding item to Cart: ${error.response ? error.response.data.message : error.message}`)
         }
     }
+    
 
 
 
