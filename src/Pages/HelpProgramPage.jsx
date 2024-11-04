@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../context/auth.context';
 
 function HelpProgramPage() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const { loggedInUser } = useContext(AuthContext)
     const services = [
         {
             id: 1,
@@ -50,18 +52,28 @@ function HelpProgramPage() {
     ];
 
     const submitBookNow = async (service) => {
+        if (!loggedInUser) {
+            alert("Please log in to book a service.");
+            navigate('/login')
+            return
+        }
+
         const data = {
+            userId: loggedInUser._id,  
             name: service.name,
-        };
+            serviceId: service.id,
+        }
 
         try {
-            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/BookNow`, data);
-            alert("Item added to Cart");
-            navigate('/Cart');
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/add`, data);
+            alert("Item added to Cart")
+            navigate('/Cart')
         } catch (error) {
-            console.error("Error adding item to Cart:", error);
+            console.error("Error adding item to Cart:", error)
         }
-    };
+    }
+
+
 
     return (
         <div className="bg-[rgb(255,250,236)] bg-contain bg-center min-h-screen flex flex-col items-center">
@@ -84,7 +96,7 @@ function HelpProgramPage() {
                 ))}
             </div>
         </div>
-    );
+    )
 }
 
 export default HelpProgramPage;
