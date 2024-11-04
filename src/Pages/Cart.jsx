@@ -3,44 +3,44 @@ import { AuthContext } from '../context/auth.context';
 import axios from 'axios';
 
 function Cart() {
-  const { loggedInUser } = useContext(AuthContext);
-  const [cartItem, setCartItem] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { loggedInUser } = useContext(AuthContext)
+  const [cartItem, setCartItem] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/AddtoCart`);
-        setCartItem(response.data);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/cart/${loggedInUser._id}`)
+        setCartItem(response.data.items)
       } catch (err) {
-        setError('Error fetching cart items');
-        console.log(err);
+        setError('Error fetching cart items')
+        console.log(err)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     };
 
-    fetchCartItems();
-  }, []); 
+    fetchCartItems()
+  }, [loggedInUser])
 
   const handleDelete = (id) => {
-    axios.delete(`${import.meta.env.VITE_BACKEND_URL}/AddtoCart/${id}`)
+    axios.delete(`${import.meta.env.VITE_BACKEND_URL}/cart/${id}`)
       .then(() => {
-        // Filter out the deleted item
-        setCartItem(prevItems => prevItems.filter(item => item._id !== id));
+        
+        setCartItem(prevItems => prevItems.filter(item => item._id !== id))
       })
       .catch((err) => {
-        console.error("Error deleting cart item:", err);
+        console.error("Error deleting cart item:", err)
       });
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div>{error}</div>
   }
 
   return (
@@ -65,4 +65,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default Cart
