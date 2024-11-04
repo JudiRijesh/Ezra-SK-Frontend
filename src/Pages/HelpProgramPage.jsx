@@ -65,13 +65,11 @@ function HelpProgramPage() {
         }
     
         try {
-            console.log(`Posting to: ${import.meta.env.VITE_BACKEND_URL}/add`, data)
-            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/add`, data)
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, data)
             alert("Item added to Cart")
-            navigate('/Cart')
+            navigate('/cart')
         } catch (error) {
-            console.error("Error adding item to Cart:", error)
-            alert(`Error adding item to Cart: ${error.response ? error.response.data.message : error.message}`)
+            console.error("Error adding item to Cart:", error.response ? error.response.data : error.message)
         }
     }
     

@@ -3,7 +3,7 @@ import { AuthContext } from '../context/auth.context';
 import axios from 'axios';
 
 function Cart() {
-  const { loggedInUser } = useContext(AuthContext); // Assuming user is needed for fetching cart
+  const { loggedInUser } = useContext(AuthContext);
   const [cartItem, setCartItem] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ function Cart() {
 
     fetchCartItems();
   }, []); 
-  
+
   const handleDelete = (id) => {
     axios.delete(`${import.meta.env.VITE_BACKEND_URL}/AddtoCart/${id}`)
       .then(() => {

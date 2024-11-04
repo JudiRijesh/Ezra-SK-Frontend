@@ -28,7 +28,7 @@ function App() {
             <Route path='/become' element={<BecomeaHelpPartner />} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
-            <Route path='/cart' element={<ProtectedRoute element={<Cart />} />} /> {/* Protect Cart route */}
+            <Route path='/cart' element={<ProtectedRoute element={<Cart />} />} /> 
           </Routes>
         </div>
       </div>
