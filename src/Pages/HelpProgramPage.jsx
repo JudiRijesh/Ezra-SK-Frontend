@@ -4,8 +4,9 @@ import axios from 'axios';
 import { AuthContext } from '../context/auth.context';
 
 function HelpProgramPage() {
-    const navigate = useNavigate()
-    const { loggedInUser } = useContext(AuthContext)
+    const navigate = useNavigate();
+    const { loggedInUser } = useContext(AuthContext);
+
     const services = [
         {
             id: 1,
@@ -53,41 +54,38 @@ function HelpProgramPage() {
 
     const submitBookNow = async (service) => {
         if (!loggedInUser) {
-            alert("Please log in to book a service.")
-            navigate('/login')
-            return;
+            alert("Please log in to book a service.");
+            return; 
         }
-    
+
         const data = {
             userId: loggedInUser._id,
             name: service.name,
             serviceId: service.id,
-        }
-    
+        };
+
         try {
-            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, data)
-            alert("Item added to Cart")
-            navigate('/cart')
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, data);
+            alert("Item added to Cart");
+            navigate('/cart'); 
         } catch (error) {
-            console.error("Error adding item to Cart:", error.response ? error.response.data : error.message)
+            console.error("Error adding item to Cart:", error.response ? error.response.data : error.message);
         }
-    }
-    
-
-
+    };
 
     return (
         <div className="bg-[rgb(255,250,236)] bg-contain bg-center min-h-screen flex flex-col items-center">
-              <div className='pb-7 mt-6 flex items-center space-x-2'> 
-              <img src='/Ezrah-Logo.png' className='w-48' alt='logo' />
-              </div>
+            <div className='pb-7 mt-6 flex items-center space-x-2'> 
+                <img src='/Ezrah-Logo.png' className='w-48' alt='logo' />
+            </div>
             <h5 className='text-green-900 mb-20'>Choose the care you or your loved ones deserve – EZRA brings support right to your door</h5>
 
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {services.map(service => (
                     <div key={service.id} className="card bg-[rgb(255,250,236)] w-96 shadow-xl">
                         <figure><img src={service.img} alt={service.name} className='w-90 h-72' /></figure>
-                        <div className="card-body"><h2 className="card-title text-green-900">{service.name}</h2>
+                        <div className="card-body">
+                            <h2 className="card-title text-green-900">{service.name}</h2>
                             <p className='text-green-900 text-sm'>{service.description}</p>
                             <div className="card-actions justify-end">
                                 <button className="btn btn-primary mt-6" onClick={() => submitBookNow(service)}>Book Now</button>
@@ -97,7 +95,7 @@ function HelpProgramPage() {
                 ))}
             </div>
         </div>
-    )
+    );
 }
 
 export default HelpProgramPage;
