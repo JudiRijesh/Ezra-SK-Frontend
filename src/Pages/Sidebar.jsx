@@ -36,18 +36,18 @@ function Sidebar() {
           <li><Link to="/cart">Cart</Link></li>
           <li><Link to="/login">Login</Link></li>
           <li><button className='mt-5' onClick={handleLogout}>Logout</button></li>
-            
-          
+                    
             </ul>
-        </li>
-        </ul>
+       
 
 
-            <div className='border-t flex p-3 pl-10  mt-48'>
+            <div className='border-t flex p-3 pl-10  mt-20'>
             <Link><ChatIcon sx={{ color: '#004d00', fontSize: 40 }} className="hover:text-green-700 transition-colors duration-200" /></Link>
 
             </div>
 
+            </li>
+            </ul>
 
         
       </nav>
