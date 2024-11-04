@@ -1,11 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ArrowLeftSharpIcon from '@mui/icons-material/ArrowLeftSharp';
 import ChatIcon from '@mui/icons-material/Chat';
-import { IconButton } from '@mui/material'
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../context/auth.context';
+
+
 
 function Sidebar() {
-  return (
+
+  const navigate = useNavigate();
+  const { logOutUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logOutUser();         
+    navigate('/');           
+  };
+
+   return (
     <aside className='h-screen w-60 fixed'>
       <nav className='h-full flex flex-col bg-[rgb(255,250,236)] border-r shadow-sm p-4'>
       <div className='pb-7 flex items-center space-x-2'> 
@@ -23,11 +35,13 @@ function Sidebar() {
           <li><Link to="/contact">Contact</Link></li>
           <li><Link to="/cart">Cart</Link></li>
           <li><Link to="/login">Login</Link></li>
+          <li><button className='mt-5' onClick={handleLogout}>Logout</button></li>
+            
           
-
             </ul>
         </li>
         </ul>
+
 
             <div className='border-t flex p-3 pl-10  mt-48'>
             <Link><ChatIcon sx={{ color: '#004d00', fontSize: 40 }} className="hover:text-green-700 transition-colors duration-200" /></Link>
