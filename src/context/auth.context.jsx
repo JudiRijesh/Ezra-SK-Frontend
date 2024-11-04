@@ -1,84 +1,72 @@
+
+// creating the context
+
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import authService from "../services/auth.service";
-import { useNavigate } from "react-router-dom";
 
-const AuthContext = createContext();
 
-function AuthContextProvider(props) {
-    const [loggedInUser, setLoggedInUser] = useState(null)
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const [isLoading, setIsLoading] = useState(true)
-    const navigate = useNavigate()
+const AuthContext = createContext()
 
-    
-    function authenticateUser(username, password) {
-        
-        authService.login({ username, password })
-            .then(response => {
-                
-                localStorage.setItem("token", response.data.authToken)
-                setLoggedInUser(response.data.user)
-                setIsLoggedIn(true)
 
-                navigate('/')
-            })
-            .catch(error => {
-                console.error("Login failed:", error)
-            });
-    }
+// context provider
 
-    
-    function signup(requestBody) {
-        return authService.signup(requestBody) 
-            .then(response => {
-                
-                console.log("User created:", response.data)
-                return true
-                
-            })
-            .catch(error => {
-                console.error("Signup failed:", error)
-                return false
-            });
-    }
+function AuthContextProvider(props){
 
-    function logOutUser() {
-        localStorage.removeItem("token")
-        setIsLoggedIn(false)
-        setLoggedInUser(null)
-        navigate('/')
-    }
+    const [loggedInUser,setLoggedInUser] = useState(null)
+    const [isLoggedIn,setIsLoggedIn] = useState(false)
+    const [isLoading,setIsLoading] = useState(true)
 
-    useEffect(() => {
+    function authenticateUser(){
+
+        // 1. get the token from localstorage
+
         const token = localStorage.getItem("token")
-        if (token) {
+
+        // 2. send the token to the verify route
+
+        if(token){
             authService.verify()
-                .then(userInformation => {
-                    setLoggedInUser(userInformation.data)
-                    setIsLoggedIn(true)
-                })
-                .catch(() => {
-                    setIsLoggedIn(false)
-                    setLoggedInUser(null)
-                });
-            }        
-             setIsLoading(false)
+            .then((userInformation)=>{
+            // 3. save the information in the context
 
-        }, []);
+                setLoggedInUser(userInformation.data)
+                setIsLoading(false)
+                setIsLoggedIn(true)
+            })
+            .catch(()=>{
+                setIsLoading(false)
+                setIsLoggedIn(false)
+                setLoggedInUser(null)
+            })
+        }
+        else{
+            setIsLoading(false)
+            setIsLoggedIn(false)
+            setLoggedInUser(null)
+        }
+    }
 
-    return (
-        <AuthContext.Provider value={{
-            loggedInUser,
-            isLoading,
-            isLoggedIn,
-            authenticateUser,
-            logOutUser,
-            signup 
-        }}>
-            {props.children}
+
+    function logOutUser(){
+
+        localStorage.removeItem("token")
+        authenticateUser()
+
+    }
+
+    useEffect(()=>{
+        authenticateUser()
+    },[])
+
+
+    return(
+        <AuthContext.Provider value={{loggedInUser,isLoading,isLoggedIn, authenticateUser,logOutUser}}>
+
+           {props.children}
+
         </AuthContext.Provider>
-    );
+    )
 }
 
-export { AuthContextProvider, AuthContext }
+export {AuthContextProvider, AuthContext }

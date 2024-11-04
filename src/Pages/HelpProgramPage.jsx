@@ -5,7 +5,7 @@ import { AuthContext } from '../context/auth.context';
 
 function HelpProgramPage() {
     const navigate = useNavigate();
-    const { loggedInUser } = useContext(AuthContext);
+    const { loggedInUser } = useContext(AuthContext); 
 
     const services = [
         {
@@ -52,26 +52,28 @@ function HelpProgramPage() {
         }
     ];
 
-    const submitBookNow = async (service) => {
+    
+    const submitBookNow = (service) => {
         if (!loggedInUser) {
-            alert("Please log in to book a service.");
+            alert("Please log in to book a service.")
             return; 
         }
 
         const data = {
             userId: loggedInUser._id,
             name: service.name,
-            serviceId: service.id,
+            description: service.description 
         };
 
-        try {
-            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, data);
-            alert("Item added to Cart");
-            navigate('/cart'); 
-        } catch (error) {
-            console.error("Error adding item to Cart:", error.response ? error.response.data : error.message);
-        }
-    };
+        axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, data)
+            .then(() => {
+                alert("Service added to Cart")
+                navigate('/cart')
+            })
+            .catch((error) => {
+                console.log("Error adding service to cart:", error)
+            })
+    }
 
     return (
         <div className="bg-[rgb(255,250,236)] bg-contain bg-center min-h-screen flex flex-col items-center">
@@ -95,7 +97,7 @@ function HelpProgramPage() {
                 ))}
             </div>
         </div>
-    );
+    )
 }
 
-export default HelpProgramPage;
+export default HelpProgramPage
