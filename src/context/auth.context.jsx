@@ -1,13 +1,16 @@
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
 import authService from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
+
+
+
 const AuthContext = createContext();
 function AuthContextProvider(props) {
     const [loggedInUser, setLoggedInUser] = useState(null)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate()
+    const [authMessage, setAuthMessage] = useState("")
     
     function authenticateUser(username, password) {
         
@@ -17,6 +20,7 @@ function AuthContextProvider(props) {
                 localStorage.setItem("token", response.data.authToken)
                 setLoggedInUser(response.data.user)
                 setIsLoggedIn(true)
+                setAuthMessage(`Logged in as ${response.data.user.username}`)
                 navigate('/')
             })
             .catch(error => {
@@ -41,6 +45,7 @@ function AuthContextProvider(props) {
         localStorage.removeItem("token")
         setIsLoggedIn(false)
         setLoggedInUser(null)
+        setAuthMessage("Logout successful")
         navigate('/')
     }
     useEffect(() => {
@@ -63,6 +68,7 @@ function AuthContextProvider(props) {
             loggedInUser,
             isLoading,
             isLoggedIn,
+            authMessage,
             authenticateUser,
             logOutUser,
             signup 
