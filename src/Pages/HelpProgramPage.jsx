@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/auth.context';
+import toast from 'react-hot-toast'
 
 function HelpProgramPage() {
     const navigate = useNavigate();
@@ -67,7 +68,7 @@ function HelpProgramPage() {
 
         axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, data)
             .then(() => {
-                alert("Service added to Cart")
+                toast.success("Service added to Cart")
                 navigate('/cart')
             })
             .catch((error) => {
