@@ -69,7 +69,7 @@ function HelpProgramPage() {
             description: service.description 
         };
 
-        axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, data, {
+        axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
