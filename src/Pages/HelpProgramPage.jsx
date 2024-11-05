@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 
 function HelpProgramPage() {
     const navigate = useNavigate();
-    const { loggedInUser } = useContext(AuthContext); 
+    const { isLoggedIn } = useContext(AuthContext); 
 
     const services = [
         {
@@ -55,26 +55,34 @@ function HelpProgramPage() {
 
     
     const submitBookNow = (service) => {
-        if (!loggedInUser) {
-            alert("Please log in to book a service.")
-            return; 
+        
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            toast.error("Please log in to book a service.");
+            navigate('/login');
+            return;
         }
 
         const data = {
-            userId: loggedInUser._id,
             name: service.name,
             description: service.description 
         };
 
-        axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, data)
-            .then(() => {
-                toast.success("Service added to Cart")
-                navigate('/cart')
-            })
-            .catch((error) => {
-                console.log("Error adding service to cart:", error)
-            })
-    }
+        axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/add`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        .then(() => {
+            toast.success("Service added to Cart");
+            navigate('/cart');
+        })
+        .catch((error) => {
+            console.error("Error adding service to cart:", error);
+            toast.error("Failed to add service to cart. Please try again.");
+        });
+    };
 
     return (
         <div className="bg-[rgb(255,250,236)] bg-contain bg-center min-h-screen flex flex-col items-center">
@@ -98,7 +106,7 @@ function HelpProgramPage() {
                 ))}
             </div>
         </div>
-    )
+    );
 }
 
-export default HelpProgramPage
+export default HelpProgramPage;
