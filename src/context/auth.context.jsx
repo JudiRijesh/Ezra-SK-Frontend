@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import authService from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast'
 
 
 
@@ -20,11 +21,12 @@ function AuthContextProvider(props) {
                 localStorage.setItem("token", response.data.authToken)
                 setLoggedInUser(response.data.user)
                 setIsLoggedIn(true)
-               
+                toast.success("Login successful!")
                 navigate('/')
             })
             .catch(error => {
                 console.error("Login failed:", error)
+                toast.error("Login failed. Please check your credentials.")
             });
     }
     
@@ -33,11 +35,13 @@ function AuthContextProvider(props) {
             .then(response => {
                 
                 console.log("User created:", response.data)
+                toast.success("Signup successful! You can now log in.")
                 return true
                 
             })
             .catch(error => {
                 console.error("Signup failed:", error)
+                toast.error("Signup failed. Please try again.")
                 return false
             });
     }
@@ -45,7 +49,7 @@ function AuthContextProvider(props) {
         localStorage.removeItem("token")
         setIsLoggedIn(false)
         setLoggedInUser(null)
-        
+        toast.success("Logout successful!")
         navigate('/')
     }
     useEffect(() => {

@@ -12,6 +12,7 @@ import BecomeaHelpPartner from './Pages/BecomeaHelpPartner';
 import Cart from './Pages/Cart';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -33,6 +34,7 @@ function App() {
             <Route path='/signup' element={<Signup />} />
             <Route path='/cart' element={<Cart/>}/> 
           </Routes>
+          <Toaster/>
         </div>
       </div>
     </AuthContextProvider>
