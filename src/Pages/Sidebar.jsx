@@ -42,7 +42,8 @@ function Sidebar() {
 
 
             <div className='border-t flex p-3 pl-10  mt-20'>
-            <Link><ChatIcon sx={{ color: '#004d00', fontSize: 40 }} className="hover:text-green-700 transition-colors duration-200" /></Link>
+            <a href='https://ezrachat.netlify.app'><ChatIcon sx={{ color: '#004d00', fontSize: 40 }} className="hover:text-green-700 transition-colors duration-200" />
+            </a>
 
             </div>
 

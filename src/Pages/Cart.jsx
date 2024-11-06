@@ -9,13 +9,14 @@ function Cart() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/cart`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/cart/cart`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, 
         },
       })
       .then((res) => {
-        setCartItems(res.data.items || []);
+        console.log(res)
+        setCartItems(res.data || []);
         setLoading(false)
       })
       .catch((err) => {
@@ -33,10 +34,13 @@ function Cart() {
   return (
     <div className="bg-[rgb(255,250,236)] bg-contain bg-center min-h-screen flex flex-col items-center">
        <h2>Your Cart</h2>
-      {cartItems.length > 0 ? (
+      {cartItems.services.length > 0 ? (
         <ul>
-          {cartItems.map((item, index) => (
-            <li key={index}>{item.name}</li>
+          {cartItems.services.map((services, index) => (
+           <div key={index}>
+           <li >{services.name}</li>
+           <li>{services.description}</li>
+           </div> 
           ))}
         </ul>
       ) : (
