@@ -31,7 +31,7 @@ function Cart() {
   let handleDelete = (serviceId) => {
     if (!serviceId) {
       console.error("Service ID is undefined, cannot delete");
-      return;
+      return
     }
   
     axios
@@ -44,12 +44,12 @@ function Cart() {
         setCartItems((prevCart) => ({
           ...prevCart,
           services: prevCart.services.filter((service) => service._id !== serviceId),
-        }));
+        }))
       })
       .catch((err) => {
-        console.error("Error deleting service", err);
-      });
-  };
+        console.error("Error deleting service:", err.response?.data || err.message)
+      })
+  }
 
 
   
