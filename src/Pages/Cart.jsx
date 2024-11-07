@@ -68,7 +68,7 @@ function Cart() {
        <h2 className="text-2xl font-semibold text-green-900 mt-2 mb-6">Services in your Cart</h2>
 
       {cartItems.services && cartItems.services.length > 0 ? (
-        <div className="overflow-x-auto w-full max-w-4xl mt-8">
+        <div className="overflow-x-auto w-full max-w-7xl mt-8">
           <table className="table w-full">
             <thead>
               <tr>
