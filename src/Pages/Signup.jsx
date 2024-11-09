@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/auth.context';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Signup = () => {
   const { signup } = useContext(AuthContext);
@@ -8,6 +9,8 @@ const Signup = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate(); 
 
   const handleSubmit = async (event) => {
@@ -49,16 +52,48 @@ const Signup = () => {
               type='text' placeholder='Enter Username'className='w-full input input-bordered h-10' value={username} onChange={(e) => setUsername(e.target.value)} required/>
           </div>
           <div>
-            <label className='label p-2 mt-4'>
+          <label className='label p-2 mt-4'>
               <span className='text-green-900 label-text'>Password</span>
             </label>
-            <input type='password' placeholder='Enter Password' className='w-full input input-bordered h-10' value={password} onChange={(e) => setPassword(e.target.value)} required/>
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder='Enter Password'
+                className='w-full input input-bordered h-10 pr-10'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
           <div>
             <label className='label p-2 mt-4'>
               <span className='text-green-900 label-text'>Confirm Password</span>
             </label>
-            <input type='password' placeholder='Confirm Password' className='w-full input input-bordered h-10' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                placeholder='Confirm Password'
+                className='w-full input input-bordered h-10 pr-10'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600"
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
 
           <Link to='/login' className='label p-2 mt-4 text-sm hover:underline hover:text-green-900 mt-2 inline-block'>
