@@ -20,9 +20,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-[rgb(255,250,236)]">
       <div className='w-96 p-6 rounded-lg shadow-lg bg-[rgb(255,250,236)]'> 
-        <h1 className='text-3xl font-semibold text-center text-green-900'>Login
-          <span className='text-green-900'> Chat</span>
-        </h1>
+        <h1 className='text-3xl font-semibold text-center text-green-900'>Login</h1>
 
         <form onSubmit={handleSubmit}>
           <div>
