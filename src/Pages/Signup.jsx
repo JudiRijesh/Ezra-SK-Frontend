@@ -66,7 +66,7 @@ const Signup = () => {
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-green-900"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
