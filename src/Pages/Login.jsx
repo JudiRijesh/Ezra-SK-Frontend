@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; 
 import { AuthContext } from '../context/auth.context'; 
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 const Login = () => {
@@ -8,6 +9,7 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false); // Add loading state
+  const [showPassword, setShowPassword] = useState(false); //Adding state to show password visible
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -27,27 +29,23 @@ const Login = () => {
             <label className='label p-2 mt-6'>
               <span className='text-green-900 label-text'>Username</span>
             </label>
-            <input
-              type='text'
-              placeholder='Enter Username'
-              className='w-full input input-bordered h-10 '
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+            <input type='text'  placeholder='Enter Username' className='w-full input input-bordered h-10 ' value={username}  onChange={(e) => setUsername(e.target.value)} required/>
           </div>
           <div>
             <label className='label p-2 mt-2'>
               <span className='text-green-900 label-text'>Password</span>
             </label>
-            <input
-              type='password'
-              placeholder='Enter Password'
-              className='w-full input input-bordered h-10'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'} placeholder='Enter Password' className='w-full input input-bordered h-10 pr-10' value={password} onChange={(e) => setPassword(e.target.value)} required/>
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-green-900"
+                onClick={() => setShowPassword((prev) => !prev)} // Toggle showPassword state
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />} 
+              </button>
+            </div>
           </div>
 
           <Link to='/signup' className='label p-2 text-sm hover:underline hover:text-green-900 mt-6 inline-block'>
