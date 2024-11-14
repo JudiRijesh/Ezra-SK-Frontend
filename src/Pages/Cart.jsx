@@ -3,16 +3,26 @@ import axios from 'axios';
 import { AuthContext } from '../context/auth.context';
 import toast from 'react-hot-toast'
 import { IoSaveSharp } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom'
 
 
 function Cart() {
   const [cartItems, setCartItems] = useState([])
   const [loading, setLoading] = useState(true)
-  const { authenticateUser } = useContext(AuthContext)
+  const { isLoggedIn } = useContext(AuthContext)
   const [timeUpdates, setTimeUpdates] = useState({})
-
- //Get
+  const navigate = useNavigate()
+ 
+ 
   useEffect(() => {
+
+    if (!isLoggedIn) {
+      toast.error("Please log in to see your cart.");
+      navigate('/login');
+      return;
+  }
+
+  //Get
     axios
       .get(`${import.meta.env.VITE_BACKEND_URL}/cart/cart`, {
         headers: {
@@ -28,7 +38,7 @@ function Cart() {
         console.error("Error fetching cart items:", err);
         setLoading(false)
       })
-  }, [])
+  }, [isLoggedIn, navigate])
 
 
   //Update
