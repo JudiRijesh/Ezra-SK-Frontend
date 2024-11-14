@@ -56,6 +56,15 @@ function HelpProgramPage() {
     
     const submitBookNow = (service) => {
         
+//Checking if the user has logged in
+
+        if (!isLoggedIn) {
+            toast.error("Please log in to book a service.");
+            navigate('/login');
+            return;
+        }
+//If user has already logged in 
+
         const token = localStorage.getItem("token");
 
         if (!token) {
